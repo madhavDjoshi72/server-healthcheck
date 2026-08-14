@@ -21,6 +21,17 @@ check_top_processes() {
     ps aux --sort=-%cpu | head -6
 }
 
+# Test whether DNS resolution is working by resolving a known domain
+check_dns() {
+    echo "=== DNS Resolution Test ==="
+    if nslookup github.com > /dev/null 2>&1; then
+        echo "DNS resolution: OK (github.com resolved successfully)"
+    else
+        echo "DNS resolution: FAILED"
+    fi
+}
+
 check_disk
 check_memory
 check_top_processes
+check_dns
