@@ -31,7 +31,26 @@ check_dns() {
     fi
 }
 
+# Test general internet connectivity by pinging a reliable external host
+check_connectivity() {
+    echo "=== Internet Connectivity Test ==="
+    if ping -c 2 -W 2 8.8.8.8 > /dev/null 2>&1; then
+        echo "Connectivity: OK (reached 8.8.8.8)"
+    else
+        echo "Connectivity: FAILED"
+    fi
+}
+
+# List all ports currently listening for connections on this server
+check_open_ports() {
+    echo "=== Listening Ports ==="
+    ss -tuln | grep LISTEN
+}
+
+
 check_disk
 check_memory
 check_top_processes
 check_dns
+check_connectivity
+check_open_ports
