@@ -15,5 +15,12 @@ check_memory() {
     free -h
 }
 
+# Show the top 5 processes by CPU usage
+check_top_processes() {
+    echo "=== Top 5 CPU-Consuming Processes ==="
+    ps aux --sort=-%cpu | head -6
+}
+
 check_disk
 check_memory
+check_top_processes
